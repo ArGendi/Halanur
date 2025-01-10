@@ -1,0 +1,114 @@
+{
+  "project_info": {
+    "project_number": "296741108859",
+    "project_id": "halanurapp",
+    "storage_bucket": "halanurapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:296741108859:android:8149214f94cb3c3e8d36de",
+        "android_client_info": {
+          "package_name": "eShop.multivendor.customer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "296741108859-3n09fn1dvotfo0c9gsvdicroujmje38u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "eShop.multivendor.customer",
+            "certificate_hash": "be9055138e4c6b2a3ceca413b0047eb3d1ab1aa1"
+          }
+        },
+        {
+          "client_id": "296741108859-epl271m4gvpbrlhhakja1478e8mlgsdn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "eShop.multivendor.customer",
+            "certificate_hash": "80aec8e02258fdfc47aa613cf73775e55ca2ce82"
+          }
+        },
+        {
+          "client_id": "296741108859-3fjafcqe8cbv9p3ussol8t37ql1qs9b4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZKq2UF70TLpf1uhBpvlwV-mZXTlb38oE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "296741108859-3fjafcqe8cbv9p3ussol8t37ql1qs9b4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "296741108859-uv1h39ips0hb8ljb9ieb8gtrb2jp8sk6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "wrteam.eshop.multivendor"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:296741108859:android:62241da5053448d08d36de",
+        "android_client_info": {
+          "package_name": "org.halanur.halanur"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "296741108859-p261ktqle8eammiuirqgritv6ijttp99.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.halanur.halanur",
+            "certificate_hash": "80aec8e02258fdfc47aa613cf73775e55ca2ce82"
+          }
+        },
+        {
+          "client_id": "296741108859-v2usvr0i71vhhbrtuijoi99m6g74rtsa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.halanur.halanur",
+            "certificate_hash": "be9055138e4c6b2a3ceca413b0047eb3d1ab1aa1"
+          }
+        },
+        {
+          "client_id": "296741108859-3fjafcqe8cbv9p3ussol8t37ql1qs9b4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZKq2UF70TLpf1uhBpvlwV-mZXTlb38oE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "296741108859-3fjafcqe8cbv9p3ussol8t37ql1qs9b4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "296741108859-uv1h39ips0hb8ljb9ieb8gtrb2jp8sk6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "wrteam.eshop.multivendor"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
