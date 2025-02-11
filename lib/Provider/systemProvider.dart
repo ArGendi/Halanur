@@ -7,7 +7,7 @@ import 'package:eshop_multivendor/Provider/SettingProvider.dart';
 import 'package:eshop_multivendor/repository/paymentMethodRepository.dart';
 import 'package:eshop_multivendor/repository/systemRepository.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_paystack/flutter_paystack.dart';
+//import 'package:flutter_paystack/flutter_paystack.dart';
 import 'package:provider/provider.dart';
 import '../Helper/String.dart';
 import '../Screen/Language/languageSettings.dart';
@@ -243,7 +243,7 @@ class SystemProvider extends ChangeNotifier {
         if (isRazorpayEnable!) razorpayId = payment['razorpay_key_id'];
         if (isPayStackEnable!) {
           payStackKeyID = payment['paystack_key_id'];
-          PaystackPlugin().initialize(publicKey: payStackKeyID!);
+          //PaystackPlugin().initialize(publicKey: payStackKeyID!);
         }
 
         if (isPhonepeEnable ?? false) {

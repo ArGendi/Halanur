@@ -309,7 +309,7 @@ class DashboardPageState extends State<Dashboard>
       systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: Theme.of(context).colorScheme.white),
       elevation: 0,
-      toolbarHeight: 60,
+      //toolbarHeight: 60,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           bottom:
@@ -328,7 +328,7 @@ class DashboardPageState extends State<Dashboard>
          // Theme.of(context).colorScheme.white == const Color(0xffFFFFFF)? 
           Image.asset(
                   'assets/images/png/logo.png',
-                  height: 52,
+                  height: 30,
                 ),
               // : Image.asset(
               //     "assets/images/png/logo.png",

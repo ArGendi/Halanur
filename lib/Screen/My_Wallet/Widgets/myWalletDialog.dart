@@ -18,8 +18,8 @@ import 'package:eshop_multivendor/repository/paymentMethodRepository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:my_fatoorah/my_fatoorah.dart';
-import 'package:phonepe_payment_sdk/phonepe_payment_sdk.dart';
+//import 'package:my_fatoorah/my_fatoorah.dart';
+//import 'package:phonepe_payment_sdk/phonepe_payment_sdk.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import '../../../Helper/String.dart';
@@ -787,106 +787,108 @@ class _AddMoneyDialogState extends State<AddMoneyDialog> {
 
   Future<Map<String, dynamic>> doPaymentWithPhonePe(
       {required double price}) async {
-    try {
-      bool isPhonePeInitilized = await PhonePePaymentSdk.init(
-          context.read<SystemProvider>().phonePeMode!.toUpperCase(),
-          context.read<SystemProvider>().phonePeAppId ?? '',
-          context.read<SystemProvider>().phonePeMerId!,
-          true);
+        return {};
+    // try {
+    //   bool isPhonePeInitilized = await PhonePePaymentSdk.init(
+    //       context.read<SystemProvider>().phonePeMode!.toUpperCase(),
+    //       context.read<SystemProvider>().phonePeAppId ?? '',
+    //       context.read<SystemProvider>().phonePeMerId!,
+    //       true);
 
-      String orderID =
-          '${context.read<UserProvider>().userId}-${DateTime.now().millisecondsSinceEpoch}';
+    //   String orderID =
+    //       '${context.read<UserProvider>().userId}-${DateTime.now().millisecondsSinceEpoch}';
 
-      final bool transactionAdded = await addTransaction(
-          tranId: orderID,
-          status: 'awaiting',
-          msg: 'waiting for payment',
-          amount: price.toString(),
-          paymentMethod: 'PhonePe');
+    //   final bool transactionAdded = await addTransaction(
+    //       tranId: orderID,
+    //       status: 'awaiting',
+    //       msg: 'waiting for payment',
+    //       amount: price.toString(),
+    //       paymentMethod: 'PhonePe');
 
-      //first create transaction with awaiting state, then do payment
-      if (!transactionAdded || !isPhonePeInitilized) {
-        return {
-          'error': true,
-          'message': getTranslated(context, 'PHONEPE_PAYMENT_FAILED'),
-          'status': false,
-        };
-      }
+    //   //first create transaction with awaiting state, then do payment
+    //   if (!transactionAdded || !isPhonePeInitilized) {
+    //     return {
+    //       'error': true,
+    //       'message': getTranslated(context, 'PHONEPE_PAYMENT_FAILED'),
+    //       'status': false,
+    //     };
+    //   }
 
-      final phonePeDetails = await PaymentRepository.getPhonePeDetails(
-        type: 'wallet',
-        mobile: context.read<UserProvider>().mob.trim().isEmpty
-            ? context.read<UserProvider>().userId ?? '0'
-            : context.read<UserProvider>().mob,
-        userId: context.read<UserProvider>().userId ?? '0',
-        amount: price.toString(),
-        orderId: orderID,
-        transationId: orderID,
-      );
+    //   final phonePeDetails = await PaymentRepository.getPhonePeDetails(
+    //     type: 'wallet',
+    //     mobile: context.read<UserProvider>().mob.trim().isEmpty
+    //         ? context.read<UserProvider>().userId ?? '0'
+    //         : context.read<UserProvider>().mob,
+    //     userId: context.read<UserProvider>().userId ?? '0',
+    //     amount: price.toString(),
+    //     orderId: orderID,
+    //     transationId: orderID,
+    //   );
 
-      final response = await PhonePePaymentSdk.startTransaction(
-          jsonEncode(phonePeDetails['data']['payload'] ?? {}).toBase64,
-          phonePeDetails['data']['payload']['redirectUrl'] ?? '',
-          phonePeDetails['data']['checksum'] ?? '',
-          Platform.isAndroid ? packageName : iosPackage);
-      print("RESPONSE: ${response.toString()}");
-      if (response != null) {
-        String status = response['status'].toString();
+    //   final response = await PhonePePaymentSdk.startTransaction(
+    //       jsonEncode(phonePeDetails['data']['payload'] ?? {}).toBase64,
+    //       phonePeDetails['data']['payload']['redirectUrl'] ?? '',
+    //       phonePeDetails['data']['checksum'] ?? '',
+    //       Platform.isAndroid ? packageName : iosPackage);
+    //   print("RESPONSE: ${response.toString()}");
+    //   if (response != null) {
+    //     String status = response['status'].toString();
 
-        if (status == 'SUCCESS') {
-          return {
-            'error': false,
-            'message': getTranslated(context, 'PHONEPE_PAYMENT_SUCCESS'),
-            'status': true,
-          };
-        }
-      }
+    //     if (status == 'SUCCESS') {
+    //       return {
+    //         'error': false,
+    //         'message': getTranslated(context, 'PHONEPE_PAYMENT_SUCCESS'),
+    //         'status': true,
+    //       };
+    //     }
+    //   }
 
-      return {
-        'error': true,
-        'message': getTranslated(context, 'PHONEPE_PAYMENT_FAILED'),
-        'status': false,
-      };
-    } catch (e) {
-      return {
-        'error': true,
-        'message': e.toString(),
-        'status': false,
-      };
-    }
+    //   return {
+    //     'error': true,
+    //     'message': getTranslated(context, 'PHONEPE_PAYMENT_FAILED'),
+    //     'status': false,
+    //   };
+    // } catch (e) {
+    //   return {
+    //     'error': true,
+    //     'message': e.toString(),
+    //     'status': false,
+    //   };
+    // }
   }
 
   Future<Map<String, dynamic>> doPaymentWithPaytm(
       {required double price}) async {
-    context.read<MyWalletProvider>().isLoading = true;
-    try {
-      String orderID = DateTime.now().millisecondsSinceEpoch.toString();
+        return {};
+    // context.read<MyWalletProvider>().isLoading = true;
+    // try {
+    //   String orderID = DateTime.now().millisecondsSinceEpoch.toString();
 
-      String paytmCallBackURL = context
-                  .read<SystemProvider>()
-                  .isPaytmOnTestMode ??
-              true
-          ? 'https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID=$orderID'
-          : 'https://securegw.paytm.in/theia/paytmCallback?ORDER_ID=$orderID';
+    //   String paytmCallBackURL = context
+    //               .read<SystemProvider>()
+    //               .isPaytmOnTestMode ??
+    //           true
+    //       ? 'https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID=$orderID'
+    //       : 'https://securegw.paytm.in/theia/paytmCallback?ORDER_ID=$orderID';
 
-      var response = await context.read<PaymentProvider>().payWithPaytm(
-            userID: context.read<UserProvider>().userId!,
-            orderID: orderID,
-            paymentAmount: price.toString(),
-            paytmCallBackURL: paytmCallBackURL,
-            paytmMerchantID: context.read<SystemProvider>().paytmMerchantID!,
-            isTestingModeEnable:
-                context.read<SystemProvider>().isPaytmOnTestMode ?? true,
-          );
+    //   var response = await context.read<PaymentProvider>().payWithPaytm(
+    //         userID: context.read<UserProvider>().userId!,
+    //         orderID: orderID,
+    //         paymentAmount: price.toString(),
+    //         paytmCallBackURL: paytmCallBackURL,
+    //         paytmMerchantID: context.read<SystemProvider>().paytmMerchantID!,
+    //         isTestingModeEnable:
+    //             context.read<SystemProvider>().isPaytmOnTestMode ?? true,
+    //       );
 
-      return response;
-    } catch (e) {
-      return {
-        'error': true,
-        'message': e.toString(),
-        'status': false,
-      };
-    }
+    //   return response;
+    // } catch (e) {
+    //   return {
+    //     'error': true,
+    //     'message': e.toString(),
+    //     'status': false,
+    //   };
+    // }
   }
 
   Future<Map<String, dynamic>> doPaymentWithStripe({
@@ -915,132 +917,133 @@ class _AddMoneyDialogState extends State<AddMoneyDialog> {
   Future<Map<String, dynamic>> doMyFatoorah({
     required String price,
   }) async {
-    try {
-      String tranId = '';
-      String orderID =
-          'wallet-refill-user-${context.read<UserProvider>().userId}-${DateTime.now().millisecondsSinceEpoch}-${Random().nextInt(900) + 100}';
-      String amount = price;
-      String successUrl =
-          '${systemProvider!.myfatoorahSuccessUrl!}?txn_id=$tranId&order_id=$orderID&amount=$price';
-      String errorUrl =
-          '${systemProvider!.myfatoorahErrorUrl!}?txn_id=$tranId&order_id=$orderID&amount=$price';
-      String token = systemProvider!.myfatoorahToken!;
-      try {
-        var response = await MyFatoorah.startPayment(
-          context: context,
-          successChild: InkWell(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: const SizedBox(
-              width: 200,
-              height: 200,
-              child: Icon(
-                Icons.done,
-                size: 100,
-                color: Colors.green,
-              ),
-            ),
-          ),
-          request: systemProvider!.myfatoorahPaymentMode == 'test'
-              ? MyfatoorahRequest.test(
-                  userDefinedField: orderID,
-                  currencyIso: () {
-                    if (systemProvider!.myfatoorahCosuntry == 'Kuwait') {
-                      return Country.Kuwait;
-                    } else if (systemProvider!.myfatoorahCosuntry == 'UAE') {
-                      return Country.UAE;
-                    } else if (systemProvider!.myfatoorahCosuntry == 'Egypt') {
-                      return Country.Egypt;
-                    } else if (systemProvider!.myfatoorahCosuntry ==
-                        'Bahrain') {
-                      return Country.Bahrain;
-                    } else if (systemProvider!.myfatoorahCosuntry == 'Jordan') {
-                      return Country.Jordan;
-                    } else if (systemProvider!.myfatoorahCosuntry == 'Oman') {
-                      return Country.Oman;
-                    } else if (systemProvider!.myfatoorahCosuntry ==
-                        'SaudiArabia') {
-                      return Country.SaudiArabia;
-                    } else if (systemProvider!.myfatoorahCosuntry ==
-                        'SaudiArabia') {
-                      return Country.Qatar;
-                    }
-                    return Country.SaudiArabia;
-                  }(),
-                  successUrl: successUrl,
-                  errorUrl: errorUrl,
-                  invoiceAmount: double.parse(amount),
-                  language: () {
-                    if (systemProvider!.myfatoorahLanguage == 'english') {
-                      return ApiLanguage.English;
-                    }
-                    return ApiLanguage.Arabic;
-                  }(),
-                  token: token,
-                )
-              : MyfatoorahRequest.live(
-                  userDefinedField: orderID,
-                  currencyIso: () {
-                    if (systemProvider!.myfatoorahCosuntry == 'Kuwait') {
-                      return Country.Kuwait;
-                    } else if (systemProvider!.myfatoorahCosuntry == 'UAE') {
-                      return Country.UAE;
-                    } else if (systemProvider!.myfatoorahCosuntry == 'Egypt') {
-                      return Country.Egypt;
-                    } else if (systemProvider!.myfatoorahCosuntry ==
-                        'Bahrain') {
-                      return Country.Bahrain;
-                    } else if (systemProvider!.myfatoorahCosuntry == 'Jordan') {
-                      return Country.Jordan;
-                    } else if (systemProvider!.myfatoorahCosuntry == 'Oman') {
-                      return Country.Oman;
-                    } else if (systemProvider!.myfatoorahCosuntry ==
-                        'SaudiArabia') {
-                      return Country.SaudiArabia;
-                    } else if (systemProvider!.myfatoorahCosuntry ==
-                        'SaudiArabia') {
-                      return Country.Qatar;
-                    }
-                    return Country.SaudiArabia;
-                  }(),
-                  successUrl: successUrl,
-                  errorUrl: errorUrl,
-                  invoiceAmount: double.parse(amount),
-                  language: () {
-                    if (systemProvider!.myfatoorahLanguage == 'english') {
-                      return ApiLanguage.English;
-                    }
-                    return ApiLanguage.Arabic;
-                  }(),
-                  token: token,
-                ),
-        );
-        if (response.status.toString() == 'PaymentStatus.Success') {
-          //updateUserWalletAmount();
-          return {
-            'error': false,
-            'message': 'Transaction Successful',
-            'status': true
-          };
-        }
-        if (response.status.toString() == 'PaymentStatus.Error') {
-          return {'error': true, 'message': e.toString(), 'status': false};
-        }
-        if (response.status.toString() == 'PaymentStatus.None') {
-          return {'error': true, 'message': e.toString(), 'status': false};
-        }
-      } on TimeoutException catch (_) {
-        setSnackbar(getTranslated(context, 'somethingMSg'), context);
-      }
-      return {
-        'error': false,
-        'message': 'Transaction Successful',
-        'status': true
-      };
-    } catch (e) {
-      return {'error': true, 'message': e.toString(), 'status': false};
-    }
+    return {};
+    // try {
+    //   String tranId = '';
+    //   String orderID =
+    //       'wallet-refill-user-${context.read<UserProvider>().userId}-${DateTime.now().millisecondsSinceEpoch}-${Random().nextInt(900) + 100}';
+    //   String amount = price;
+    //   String successUrl =
+    //       '${systemProvider!.myfatoorahSuccessUrl!}?txn_id=$tranId&order_id=$orderID&amount=$price';
+    //   String errorUrl =
+    //       '${systemProvider!.myfatoorahErrorUrl!}?txn_id=$tranId&order_id=$orderID&amount=$price';
+    //   String token = systemProvider!.myfatoorahToken!;
+    //   try {
+    //     var response = await MyFatoorah.startPayment(
+    //       context: context,
+    //       successChild: InkWell(
+    //         onTap: () {
+    //           Navigator.pop(context);
+    //         },
+    //         child: const SizedBox(
+    //           width: 200,
+    //           height: 200,
+    //           child: Icon(
+    //             Icons.done,
+    //             size: 100,
+    //             color: Colors.green,
+    //           ),
+    //         ),
+    //       ),
+    //       request: systemProvider!.myfatoorahPaymentMode == 'test'
+    //           ? MyfatoorahRequest.test(
+    //               userDefinedField: orderID,
+    //               currencyIso: () {
+    //                 if (systemProvider!.myfatoorahCosuntry == 'Kuwait') {
+    //                   return Country.Kuwait;
+    //                 } else if (systemProvider!.myfatoorahCosuntry == 'UAE') {
+    //                   return Country.UAE;
+    //                 } else if (systemProvider!.myfatoorahCosuntry == 'Egypt') {
+    //                   return Country.Egypt;
+    //                 } else if (systemProvider!.myfatoorahCosuntry ==
+    //                     'Bahrain') {
+    //                   return Country.Bahrain;
+    //                 } else if (systemProvider!.myfatoorahCosuntry == 'Jordan') {
+    //                   return Country.Jordan;
+    //                 } else if (systemProvider!.myfatoorahCosuntry == 'Oman') {
+    //                   return Country.Oman;
+    //                 } else if (systemProvider!.myfatoorahCosuntry ==
+    //                     'SaudiArabia') {
+    //                   return Country.SaudiArabia;
+    //                 } else if (systemProvider!.myfatoorahCosuntry ==
+    //                     'SaudiArabia') {
+    //                   return Country.Qatar;
+    //                 }
+    //                 return Country.SaudiArabia;
+    //               }(),
+    //               successUrl: successUrl,
+    //               errorUrl: errorUrl,
+    //               invoiceAmount: double.parse(amount),
+    //               language: () {
+    //                 if (systemProvider!.myfatoorahLanguage == 'english') {
+    //                   return ApiLanguage.English;
+    //                 }
+    //                 return ApiLanguage.Arabic;
+    //               }(),
+    //               token: token,
+    //             )
+    //           : MyfatoorahRequest.live(
+    //               userDefinedField: orderID,
+    //               currencyIso: () {
+    //                 if (systemProvider!.myfatoorahCosuntry == 'Kuwait') {
+    //                   return Country.Kuwait;
+    //                 } else if (systemProvider!.myfatoorahCosuntry == 'UAE') {
+    //                   return Country.UAE;
+    //                 } else if (systemProvider!.myfatoorahCosuntry == 'Egypt') {
+    //                   return Country.Egypt;
+    //                 } else if (systemProvider!.myfatoorahCosuntry ==
+    //                     'Bahrain') {
+    //                   return Country.Bahrain;
+    //                 } else if (systemProvider!.myfatoorahCosuntry == 'Jordan') {
+    //                   return Country.Jordan;
+    //                 } else if (systemProvider!.myfatoorahCosuntry == 'Oman') {
+    //                   return Country.Oman;
+    //                 } else if (systemProvider!.myfatoorahCosuntry ==
+    //                     'SaudiArabia') {
+    //                   return Country.SaudiArabia;
+    //                 } else if (systemProvider!.myfatoorahCosuntry ==
+    //                     'SaudiArabia') {
+    //                   return Country.Qatar;
+    //                 }
+    //                 return Country.SaudiArabia;
+    //               }(),
+    //               successUrl: successUrl,
+    //               errorUrl: errorUrl,
+    //               invoiceAmount: double.parse(amount),
+    //               language: () {
+    //                 if (systemProvider!.myfatoorahLanguage == 'english') {
+    //                   return ApiLanguage.English;
+    //                 }
+    //                 return ApiLanguage.Arabic;
+    //               }(),
+    //               token: token,
+    //             ),
+    //     );
+    //     if (response.status.toString() == 'PaymentStatus.Success') {
+    //       //updateUserWalletAmount();
+    //       return {
+    //         'error': false,
+    //         'message': 'Transaction Successful',
+    //         'status': true
+    //       };
+    //     }
+    //     if (response.status.toString() == 'PaymentStatus.Error') {
+    //       return {'error': true, 'message': e.toString(), 'status': false};
+    //     }
+    //     if (response.status.toString() == 'PaymentStatus.None') {
+    //       return {'error': true, 'message': e.toString(), 'status': false};
+    //     }
+    //   } on TimeoutException catch (_) {
+    //     setSnackbar(getTranslated(context, 'somethingMSg'), context);
+    //   }
+    //   return {
+    //     'error': false,
+    //     'message': 'Transaction Successful',
+    //     'status': true
+    //   };
+    // } catch (e) {
+    //   return {'error': true, 'message': e.toString(), 'status': false};
+    // }
   }
 
   Future<Map<String, dynamic>> doPaymentWithMidTrash({

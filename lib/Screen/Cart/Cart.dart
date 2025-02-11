@@ -13,16 +13,16 @@ import 'package:eshop_multivendor/repository/paymentMethodRepository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_paystack/flutter_paystack.dart';
+//import 'package:flutter_paystack/flutter_paystack.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mime/mime.dart';
-import 'package:my_fatoorah/my_fatoorah.dart';
+//import 'package:my_fatoorah/my_fatoorah.dart';
 //import 'package:paytm/paytm.dart';
-import 'package:paytm_allinonesdk/paytm_allinonesdk.dart';
-import 'package:phonepe_payment_sdk/phonepe_payment_sdk.dart';
+//import 'package:paytm_allinonesdk/paytm_allinonesdk.dart';
+//import 'package:phonepe_payment_sdk/phonepe_payment_sdk.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
@@ -87,7 +87,7 @@ class StateCart extends State<Cart> with TickerProviderStateMixin {
   String? msg;
   bool _isLoading = true;
   Razorpay? _razorpay;
-  final paystackPlugin = PaystackPlugin();
+  //final paystackPlugin = PaystackPlugin();
   final ScrollController _scrollControllerOnCartItems = ScrollController();
   final ScrollController _scrollControllerOnSaveForLaterItems =
       ScrollController();
@@ -2317,152 +2317,152 @@ class StateCart extends State<Cart> with TickerProviderStateMixin {
       ORDER_ID: orderID
     };
 
-    try {
-      apiBaseHelper.postAPICall(getPytmChecsumkApi, parameter).then(
-        (getdata) async {
-          bool error = getdata['error'];
+    // try {
+    //   apiBaseHelper.postAPICall(getPytmChecsumkApi, parameter).then(
+    //     (getdata) async {
+    //       bool error = getdata['error'];
 
-          if (!error) {
-            String txnToken = getdata['txn_token'];
-            setState(
-              () {
-                paymentResponse = txnToken;
-              },
-            );
-            print(
-                'context.read<CartProvider>().paytmMerId******${context.read<CartProvider>().paytmMerId!}****$orderID***${context.read<CartProvider>().totalPrice.toString()}****$txnToken****$callBackUrl****${context.read<CartProvider>().payTesting}');
-            var response = await AllInOneSdk.startTransaction(
-                context.read<CartProvider>().paytmMerId!,
-                orderID,
-                context.read<CartProvider>().totalPrice.toString(),
-                txnToken,
-                callBackUrl,
-                context.read<CartProvider>().payTesting,
-                false);
-            print('response***$response');
+    //       if (!error) {
+    //         String txnToken = getdata['txn_token'];
+    //         setState(
+    //           () {
+    //             paymentResponse = txnToken;
+    //           },
+    //         );
+    //         print(
+    //             'context.read<CartProvider>().paytmMerId******${context.read<CartProvider>().paytmMerId!}****$orderID***${context.read<CartProvider>().totalPrice.toString()}****$txnToken****$callBackUrl****${context.read<CartProvider>().payTesting}');
+    //         var response = await AllInOneSdk.startTransaction(
+    //             context.read<CartProvider>().paytmMerId!,
+    //             orderID,
+    //             context.read<CartProvider>().totalPrice.toString(),
+    //             txnToken,
+    //             callBackUrl,
+    //             context.read<CartProvider>().payTesting,
+    //             false);
+    //         print('response***$response');
 
-            if (response!['errorCode'] == null) {
-              if (response['STATUS'] == 'TXN_SUCCESS') {
-                await updateOrderStatus(orderID: orderID, status: PLACED);
-                addTransaction(response['TXNID'], orderID, SUCCESS, msg, true);
-              } else {
-                deleteOrder(orderID);
-              }
+    //         if (response!['errorCode'] == null) {
+    //           if (response['STATUS'] == 'TXN_SUCCESS') {
+    //             await updateOrderStatus(orderID: orderID, status: PLACED);
+    //             addTransaction(response['TXNID'], orderID, SUCCESS, msg, true);
+    //           } else {
+    //             deleteOrder(orderID);
+    //           }
 
-              setSnackbar(response['STATUS'], context);
-            } else {
-              String paymentResponse = response['RESPMSG'];
+    //           setSnackbar(response['STATUS'], context);
+    //         } else {
+    //           String paymentResponse = response['RESPMSG'];
 
-              if (response['response'] != null) {
-                addTransaction(response['TXNID'], orderID,
-                    response['STATUS'] ?? '', paymentResponse, false);
-              }
+    //           if (response['response'] != null) {
+    //             addTransaction(response['TXNID'], orderID,
+    //                 response['STATUS'] ?? '', paymentResponse, false);
+    //           }
 
-              setSnackbar(paymentResponse, context);
-            }
+    //           setSnackbar(paymentResponse, context);
+    //         }
 
-            context.read<CartProvider>().setProgress(false);
-            context.read<CartProvider>().placeOrder = true;
-            setState(() {});
-          } else {
-            context.read<CartProvider>().checkoutState!(
-              () {
-                context.read<CartProvider>().placeOrder = true;
-              },
-            );
-            context.read<CartProvider>().setProgress(false);
-            setSnackbar(getdata['message'], context);
-          }
-        },
-        onError: (error) {
-          setSnackbar(error.toString(), context);
-        },
-      );
-    } catch (e) {}
+    //         context.read<CartProvider>().setProgress(false);
+    //         context.read<CartProvider>().placeOrder = true;
+    //         setState(() {});
+    //       } else {
+    //         context.read<CartProvider>().checkoutState!(
+    //           () {
+    //             context.read<CartProvider>().placeOrder = true;
+    //           },
+    //         );
+    //         context.read<CartProvider>().setProgress(false);
+    //         setSnackbar(getdata['message'], context);
+    //       }
+    //     },
+    //     onError: (error) {
+    //       setSnackbar(error.toString(), context);
+    //     },
+    //   );
+    // } catch (e) {}
   }
 
   void initPhonePeSdk({required String orderId}) async {
-    PhonePePaymentSdk.init(
-            context.read<CartProvider>().phonePeMode!.toUpperCase(),
-            context.read<CartProvider>().phonePeAppId ?? '',
-            context.read<CartProvider>().phonePeMerId!,
-            true)
-        .then((isInitialized) {
-      startPaymentPhonePe(orderId: orderId);
-    }).catchError((error) {
-      return <dynamic>{};
-    });
+    // PhonePePaymentSdk.init(
+    //         context.read<CartProvider>().phonePeMode!.toUpperCase(),
+    //         context.read<CartProvider>().phonePeAppId ?? '',
+    //         context.read<CartProvider>().phonePeMerId!,
+    //         true)
+    //     .then((isInitialized) {
+    //   startPaymentPhonePe(orderId: orderId);
+    // }).catchError((error) {
+    //   return <dynamic>{};
+    // });
   }
 
   void startPaymentPhonePe({required String orderId}) async {
-    try {
-      final phonePeDetails = await PaymentRepository.getPhonePeDetails(
-        userId: context.read<UserProvider>().userId ?? '0',
-        type: 'cart',
-        mobile: context.read<UserProvider>().mob.trim().isEmpty
-            ? context.read<UserProvider>().userId ?? '0'
-            : context.read<UserProvider>().mob,
-        orderId: orderId,
-        transationId: orderId,
-      );
+    // try {
+    //   final phonePeDetails = await PaymentRepository.getPhonePeDetails(
+    //     userId: context.read<UserProvider>().userId ?? '0',
+    //     type: 'cart',
+    //     mobile: context.read<UserProvider>().mob.trim().isEmpty
+    //         ? context.read<UserProvider>().userId ?? '0'
+    //         : context.read<UserProvider>().mob,
+    //     orderId: orderId,
+    //     transationId: orderId,
+    //   );
 
-      await PhonePePaymentSdk.startTransaction(
-              jsonEncode(phonePeDetails['data']['payload'] ?? {}).toBase64,
-              phonePeDetails['data']['payload']['redirectUrl'] ?? '',
-              phonePeDetails['data']['checksum'] ?? '',
-              Platform.isAndroid ? packageName : iosPackage)
-          .then((response) async {
-        if (response != null) {
-          String status = response['status'].toString();
-          if (status == 'SUCCESS') {
-            // "Flow Completed - Status: Success!";
+    //   await PhonePePaymentSdk.startTransaction(
+    //           jsonEncode(phonePeDetails['data']['payload'] ?? {}).toBase64,
+    //           phonePeDetails['data']['payload']['redirectUrl'] ?? '',
+    //           phonePeDetails['data']['checksum'] ?? '',
+    //           Platform.isAndroid ? packageName : iosPackage)
+    //       .then((response) async {
+    //     if (response != null) {
+    //       String status = response['status'].toString();
+    //       if (status == 'SUCCESS') {
+    //         // "Flow Completed - Status: Success!";
 
-            // await updateOrderStatus(orderID: orderId, status: PLACED);
-            // await addTransaction(orderId, orderId, SUCCESS, status, true);
-            context.read<UserProvider>().setCartCount('0');
-            clearAll();
-            Routes.navigateToOrderSuccessScreen(context);
+    //         // await updateOrderStatus(orderID: orderId, status: PLACED);
+    //         // await addTransaction(orderId, orderId, SUCCESS, status, true);
+    //         context.read<UserProvider>().setCartCount('0');
+    //         clearAll();
+    //         Routes.navigateToOrderSuccessScreen(context);
 
-            if (mounted) {
-              context.read<CartProvider>().setProgress(false);
-            }
-          } else {
-            // "Flow Completed - Status: $status and Error: $error";
-            // setSnackbar(response.message.toString(), context);
-            deleteOrder(orderId);
-            setSnackbar(
-                getTranslated(context, 'PHONEPE_PAYMENT_FAILED'), context);
-            if (mounted) {
-              context.read<CartProvider>().checkoutState!(
-                () {
-                  context.read<CartProvider>().placeOrder = true;
-                },
-              );
-            }
-            context.read<CartProvider>().setProgress(false);
-          }
-        } else {
-          // "Flow Incomplete";
-          // setSnackbar(, context);
-          deleteOrder(orderId);
-          setSnackbar(
-              getTranslated(context, 'PHONEPE_PAYMENT_FAILED'), context);
-          if (mounted) {
-            context.read<CartProvider>().checkoutState!(
-              () {
-                context.read<CartProvider>().placeOrder = true;
-              },
-            );
-          }
-          context.read<CartProvider>().setProgress(false);
-        }
-      }).catchError((error) {
-        return <dynamic>{};
-      });
-    } catch (error) {
-      setSnackbar(getTranslated(context, 'PHONEPE_PAYMENT_FAILED'), context);
-      context.read<CartProvider>().setProgress(false);
-    }
+    //         if (mounted) {
+    //           context.read<CartProvider>().setProgress(false);
+    //         }
+    //       } else {
+    //         // "Flow Completed - Status: $status and Error: $error";
+    //         // setSnackbar(response.message.toString(), context);
+    //         deleteOrder(orderId);
+    //         setSnackbar(
+    //             getTranslated(context, 'PHONEPE_PAYMENT_FAILED'), context);
+    //         if (mounted) {
+    //           context.read<CartProvider>().checkoutState!(
+    //             () {
+    //               context.read<CartProvider>().placeOrder = true;
+    //             },
+    //           );
+    //         }
+    //         context.read<CartProvider>().setProgress(false);
+    //       }
+    //     } else {
+    //       // "Flow Incomplete";
+    //       // setSnackbar(, context);
+    //       deleteOrder(orderId);
+    //       setSnackbar(
+    //           getTranslated(context, 'PHONEPE_PAYMENT_FAILED'), context);
+    //       if (mounted) {
+    //         context.read<CartProvider>().checkoutState!(
+    //           () {
+    //             context.read<CartProvider>().placeOrder = true;
+    //           },
+    //         );
+    //       }
+    //       context.read<CartProvider>().setProgress(false);
+    //     }
+    //   }).catchError((error) {
+    //     return <dynamic>{};
+    //   });
+    // } catch (error) {
+    //   setSnackbar(getTranslated(context, 'PHONEPE_PAYMENT_FAILED'), context);
+    //   context.read<CartProvider>().setProgress(false);
+    // }
   }
 
   Future<void> placeOrder(String? tranId) async {
@@ -2834,40 +2834,40 @@ class StateCart extends State<Cart> with TickerProviderStateMixin {
     String? msg,
     bool redirect,
   ) async {
-    context.read<CartProvider>().setProgress(true);
-    await paystackPlugin.initialize(
-        publicKey: context.read<CartProvider>().paystackId!);
-    String? email = context.read<SettingProvider>().email;
+    // context.read<CartProvider>().setProgress(true);
+    // await paystackPlugin.initialize(
+    //     publicKey: context.read<CartProvider>().paystackId!);
+    // String? email = context.read<SettingProvider>().email;
 
-    Charge charge = Charge()
-      ..amount = (context.read<CartProvider>().totalPrice * 100).toInt()
-      ..reference = _getReference()
-      ..putMetaData('order_id', orderID)
-      ..email = email;
-    try {
-      CheckoutResponse response = await paystackPlugin.checkout(
-        context,
-        method: CheckoutMethod.card,
-        charge: charge,
-      );
-      if (response.status) {
-        addTransaction(response.reference, orderID, SUCCESS, msg, true);
-      } else {
-        deleteOrder(orderID);
-        setSnackbar(response.message, context);
-        if (mounted) {
-          context.read<CartProvider>().checkoutState!(
-            () {
-              context.read<CartProvider>().placeOrder = true;
-            },
-          );
-        }
-        context.read<CartProvider>().setProgress(false);
-      }
-    } catch (e) {
-      context.read<CartProvider>().setProgress(false);
-      rethrow;
-    }
+    // Charge charge = Charge()
+    //   ..amount = (context.read<CartProvider>().totalPrice * 100).toInt()
+    //   ..reference = _getReference()
+    //   ..putMetaData('order_id', orderID)
+    //   ..email = email;
+    // try {
+    //   CheckoutResponse response = await paystackPlugin.checkout(
+    //     context,
+    //     method: CheckoutMethod.card,
+    //     charge: charge,
+    //   );
+    //   if (response.status) {
+    //     addTransaction(response.reference, orderID, SUCCESS, msg, true);
+    //   } else {
+    //     deleteOrder(orderID);
+    //     setSnackbar(response.message, context);
+    //     if (mounted) {
+    //       context.read<CartProvider>().checkoutState!(
+    //         () {
+    //           context.read<CartProvider>().placeOrder = true;
+    //         },
+    //       );
+    //     }
+    //     context.read<CartProvider>().setProgress(false);
+    //   }
+    // } catch (e) {
+    //   context.read<CartProvider>().setProgress(false);
+    //   rethrow;
+    // }
   }
 
   String _getReference() {
@@ -2887,163 +2887,163 @@ class StateCart extends State<Cart> with TickerProviderStateMixin {
     String? msg,
     bool redirect,
   ) async {
-    isNetworkAvail = await isNetworkAvailable();
-    if (isNetworkAvail) {
-      try {
-        String amount = context.read<CartProvider>().totalPrice.toString();
-        String successUrl =
-            '${context.read<CartProvider>().myfatoorahSuccessUrl!}?order_id=$orderID&amount=${double.parse(amount)}';
-        String errorUrl =
-            '${context.read<CartProvider>().myfatoorahErrorUrl!}?order_id=$orderID&amount=${double.parse(amount)}';
-        String token = context.read<CartProvider>().myfatoorahToken!;
-        context.read<CartProvider>().setProgress(true);
-        var response = await MyFatoorah.startPayment(
-          context: context,
-          successChild: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  getTranslated(context, 'Payment Done Successfully ...!'),
-                  style: const TextStyle(
-                    fontFamily: 'ubuntu',
-                  ),
-                ),
-                const SizedBox(
-                  width: 200,
-                  height: 100,
-                  child: Icon(
-                    Icons.done,
-                    size: 100,
-                    color: Colors.green,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          request: context.read<CartProvider>().myfatoorahPaymentMode == 'test'
-              ? MyfatoorahRequest.test(
-                  currencyIso: () {
-                    if (context.read<CartProvider>().myfatoorahCountry ==
-                        'Kuwait') {
-                      return Country.Kuwait;
-                    } else if (context.read<CartProvider>().myfatoorahCountry ==
-                        'UAE') {
-                      return Country.UAE;
-                    } else if (context.read<CartProvider>().myfatoorahCountry ==
-                        'Egypt') {
-                      return Country.Egypt;
-                    } else if (context.read<CartProvider>().myfatoorahCountry ==
-                        'Bahrain') {
-                      return Country.Bahrain;
-                    } else if (context.read<CartProvider>().myfatoorahCountry ==
-                        'Jordan') {
-                      return Country.Jordan;
-                    } else if (context.read<CartProvider>().myfatoorahCountry ==
-                        'Oman') {
-                      return Country.Oman;
-                    } else if (context.read<CartProvider>().myfatoorahCountry ==
-                        'SaudiArabia') {
-                      return Country.SaudiArabia;
-                    } else if (context.read<CartProvider>().myfatoorahCountry ==
-                        'SaudiArabia') {
-                      return Country.Qatar;
-                    }
-                    return Country.SaudiArabia;
-                  }(),
-                  successUrl: successUrl,
-                  errorUrl: errorUrl,
-                  invoiceAmount: double.parse(amount),
-                  userDefinedField: orderID,
-                  language: () {
-                    if (context.read<CartProvider>().myfatoorahLanguage ==
-                        'english') {
-                      return ApiLanguage.English;
-                    }
-                    return ApiLanguage.Arabic;
-                  }(),
-                  token: token,
-                )
-              : MyfatoorahRequest.live(
-                  currencyIso: () {
-                    if (context.read<CartProvider>().myfatoorahCountry ==
-                        'Kuwait') {
-                      return Country.Kuwait;
-                    } else if (context.read<CartProvider>().myfatoorahCountry ==
-                        'UAE') {
-                      return Country.UAE;
-                    } else if (context.read<CartProvider>().myfatoorahCountry ==
-                        'Egypt') {
-                      return Country.Egypt;
-                    } else if (context.read<CartProvider>().myfatoorahCountry ==
-                        'Bahrain') {
-                      return Country.Bahrain;
-                    } else if (context.read<CartProvider>().myfatoorahCountry ==
-                        'Jordan') {
-                      return Country.Jordan;
-                    } else if (context.read<CartProvider>().myfatoorahCountry ==
-                        'Oman') {
-                      return Country.Oman;
-                    } else if (context.read<CartProvider>().myfatoorahCountry ==
-                        'SaudiArabia') {
-                      return Country.SaudiArabia;
-                    } else if (context.read<CartProvider>().myfatoorahCountry ==
-                        'SaudiArabia') {
-                      return Country.Qatar;
-                    }
-                    return Country.SaudiArabia;
-                  }(),
-                  successUrl: successUrl,
-                  userDefinedField: orderID,
-                  errorUrl: errorUrl,
-                  invoiceAmount: double.parse(amount),
-                  language: () {
-                    if (context.read<CartProvider>().myfatoorahLanguage ==
-                        'english') {
-                      return ApiLanguage.English;
-                    }
-                    return ApiLanguage.Arabic;
-                  }(),
-                  token: token,
-                ),
-        );
-        context.read<CartProvider>().setProgress(false);
+    // isNetworkAvail = await isNetworkAvailable();
+    // if (isNetworkAvail) {
+    //   try {
+    //     String amount = context.read<CartProvider>().totalPrice.toString();
+    //     String successUrl =
+    //         '${context.read<CartProvider>().myfatoorahSuccessUrl!}?order_id=$orderID&amount=${double.parse(amount)}';
+    //     String errorUrl =
+    //         '${context.read<CartProvider>().myfatoorahErrorUrl!}?order_id=$orderID&amount=${double.parse(amount)}';
+    //     String token = context.read<CartProvider>().myfatoorahToken!;
+    //     context.read<CartProvider>().setProgress(true);
+    //     var response = await MyFatoorah.startPayment(
+    //       context: context,
+    //       successChild: Center(
+    //         child: Column(
+    //           mainAxisAlignment: MainAxisAlignment.center,
+    //           crossAxisAlignment: CrossAxisAlignment.center,
+    //           children: [
+    //             Text(
+    //               getTranslated(context, 'Payment Done Successfully ...!'),
+    //               style: const TextStyle(
+    //                 fontFamily: 'ubuntu',
+    //               ),
+    //             ),
+    //             const SizedBox(
+    //               width: 200,
+    //               height: 100,
+    //               child: Icon(
+    //                 Icons.done,
+    //                 size: 100,
+    //                 color: Colors.green,
+    //               ),
+    //             ),
+    //           ],
+    //         ),
+    //       ),
+    //       request: context.read<CartProvider>().myfatoorahPaymentMode == 'test'
+    //           ? MyfatoorahRequest.test(
+    //               currencyIso: () {
+    //                 if (context.read<CartProvider>().myfatoorahCountry ==
+    //                     'Kuwait') {
+    //                   return Country.Kuwait;
+    //                 } else if (context.read<CartProvider>().myfatoorahCountry ==
+    //                     'UAE') {
+    //                   return Country.UAE;
+    //                 } else if (context.read<CartProvider>().myfatoorahCountry ==
+    //                     'Egypt') {
+    //                   return Country.Egypt;
+    //                 } else if (context.read<CartProvider>().myfatoorahCountry ==
+    //                     'Bahrain') {
+    //                   return Country.Bahrain;
+    //                 } else if (context.read<CartProvider>().myfatoorahCountry ==
+    //                     'Jordan') {
+    //                   return Country.Jordan;
+    //                 } else if (context.read<CartProvider>().myfatoorahCountry ==
+    //                     'Oman') {
+    //                   return Country.Oman;
+    //                 } else if (context.read<CartProvider>().myfatoorahCountry ==
+    //                     'SaudiArabia') {
+    //                   return Country.SaudiArabia;
+    //                 } else if (context.read<CartProvider>().myfatoorahCountry ==
+    //                     'SaudiArabia') {
+    //                   return Country.Qatar;
+    //                 }
+    //                 return Country.SaudiArabia;
+    //               }(),
+    //               successUrl: successUrl,
+    //               errorUrl: errorUrl,
+    //               invoiceAmount: double.parse(amount),
+    //               userDefinedField: orderID,
+    //               language: () {
+    //                 if (context.read<CartProvider>().myfatoorahLanguage ==
+    //                     'english') {
+    //                   return ApiLanguage.English;
+    //                 }
+    //                 return ApiLanguage.Arabic;
+    //               }(),
+    //               token: token,
+    //             )
+    //           : MyfatoorahRequest.live(
+    //               currencyIso: () {
+    //                 if (context.read<CartProvider>().myfatoorahCountry ==
+    //                     'Kuwait') {
+    //                   return Country.Kuwait;
+    //                 } else if (context.read<CartProvider>().myfatoorahCountry ==
+    //                     'UAE') {
+    //                   return Country.UAE;
+    //                 } else if (context.read<CartProvider>().myfatoorahCountry ==
+    //                     'Egypt') {
+    //                   return Country.Egypt;
+    //                 } else if (context.read<CartProvider>().myfatoorahCountry ==
+    //                     'Bahrain') {
+    //                   return Country.Bahrain;
+    //                 } else if (context.read<CartProvider>().myfatoorahCountry ==
+    //                     'Jordan') {
+    //                   return Country.Jordan;
+    //                 } else if (context.read<CartProvider>().myfatoorahCountry ==
+    //                     'Oman') {
+    //                   return Country.Oman;
+    //                 } else if (context.read<CartProvider>().myfatoorahCountry ==
+    //                     'SaudiArabia') {
+    //                   return Country.SaudiArabia;
+    //                 } else if (context.read<CartProvider>().myfatoorahCountry ==
+    //                     'SaudiArabia') {
+    //                   return Country.Qatar;
+    //                 }
+    //                 return Country.SaudiArabia;
+    //               }(),
+    //               successUrl: successUrl,
+    //               userDefinedField: orderID,
+    //               errorUrl: errorUrl,
+    //               invoiceAmount: double.parse(amount),
+    //               language: () {
+    //                 if (context.read<CartProvider>().myfatoorahLanguage ==
+    //                     'english') {
+    //                   return ApiLanguage.English;
+    //                 }
+    //                 return ApiLanguage.Arabic;
+    //               }(),
+    //               token: token,
+    //             ),
+    //     );
+    //     context.read<CartProvider>().setProgress(false);
 
-        if (response.status.toString() == 'PaymentStatus.Success') {
-          context.read<CartProvider>().setProgress(true);
+    //     if (response.status.toString() == 'PaymentStatus.Success') {
+    //       context.read<CartProvider>().setProgress(true);
 
-          await updateOrderStatus(orderID: orderID, status: PLACED);
-          addTransaction(
-            response.paymentId,
-            orderID,
-            PLACED,
-            msg,
-            true,
-          );
-        }
-        if (response.status.toString() == 'PaymentStatus.None') {
-          setSnackbar(response.status.toString(), context);
-          deleteOrder(orderID);
-          //
-        }
-        if (response.status.toString() == 'PaymentStatus.Error') {
-          setSnackbar(response.status.toString(), context);
-          deleteOrder(orderID);
-        }
-      } on TimeoutException catch (_) {
-        context.read<CartProvider>().setProgress(false);
-        setSnackbar(getTranslated(context, 'somethingMSg'), context);
-      }
-    } else {
-      if (mounted) {
-        context.read<CartProvider>().checkoutState!(
-          () {
-            isNetworkAvail = false;
-          },
-        );
-      }
-    }
+    //       await updateOrderStatus(orderID: orderID, status: PLACED);
+    //       addTransaction(
+    //         response.paymentId,
+    //         orderID,
+    //         PLACED,
+    //         msg,
+    //         true,
+    //       );
+    //     }
+    //     if (response.status.toString() == 'PaymentStatus.None') {
+    //       setSnackbar(response.status.toString(), context);
+    //       deleteOrder(orderID);
+    //       //
+    //     }
+    //     if (response.status.toString() == 'PaymentStatus.Error') {
+    //       setSnackbar(response.status.toString(), context);
+    //       deleteOrder(orderID);
+    //     }
+    //   } on TimeoutException catch (_) {
+    //     context.read<CartProvider>().setProgress(false);
+    //     setSnackbar(getTranslated(context, 'somethingMSg'), context);
+    //   }
+    // } else {
+    //   if (mounted) {
+    //     context.read<CartProvider>().checkoutState!(
+    //       () {
+    //         isNetworkAvail = false;
+    //       },
+    //     );
+    //   }
+    // }
   }
 
   midTrasPayment(

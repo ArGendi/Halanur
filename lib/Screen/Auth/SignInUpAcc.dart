@@ -242,7 +242,7 @@ class _SignInUpAccState extends State<SignInUpAcc> {
             // skipSignInBtn(),
             _subLogo(),
             welcomeEshopTxt(),
-            eCommerceforBusinessTxt(),
+            //eCommerceforBusinessTxt(),
             signinlable(),
             SizedBox(height: 20,),
             LoginButtons( label: 'Sign in', textColour: colors.whiteTemp, boxColor: Theme.of(context).colorScheme.primary, onpressfunction: onTapSignin),

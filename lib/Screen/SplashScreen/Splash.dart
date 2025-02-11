@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:async';
 import 'package:eshop_multivendor/Helper/Constant.dart';
 import 'package:eshop_multivendor/Provider/SettingProvider.dart';
@@ -11,6 +13,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import '../../Helper/String.dart';
@@ -129,57 +132,64 @@ class _SplashScreen extends State<Splash> with TickerProviderStateMixin {
                     errorMessage: state.message),
               );
             }
-            return Stack(
-              children: <Widget>[
-                Container(
-                  width: double.infinity,
-                  height: double.infinity,
-                  decoration: DesignConfiguration.back(),
-                  child: Center(
-                    child: Container(
-                      padding: EdgeInsetsDirectional.symmetric(vertical: 20, horizontal: 10),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.white.withOpacity(0.4),
-                              blurRadius: 5.0,
-                            ),
-                          ],
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(circularBorderRadius10))),
-                      child: Image.asset(
-                        DesignConfiguration.setPngPath('logo'),
-                        // fit: BoxFit.fill,
-                        width: 100,
-                        height: 100,
-                      ),
-                    ),
-                  ),
-                ),
-                Image.asset(
-                  DesignConfiguration.setPngPath('doodle'),
-                  // fit: BoxFit.fill,
-                ),
-                // Column(
-                //   mainAxisAlignment: MainAxisAlignment.end,
-                //   crossAxisAlignment: CrossAxisAlignment.center,
-                //   children: [
-                //     Padding(
-                //       padding: const EdgeInsets.only(bottom: 10),
-                //       child: Center(
-                //         child: SvgPicture.asset(
-                //           DesignConfiguration.setSvgPath('wrteam_logo'),
-                //           // fit: BoxFit.fill,
-                //           width: 40,
-                //           height: 40,
-                //         ),
-                //       ),
-                //     ),
-                //   ],
-                // )
-              ],
+            return Center(
+              child: SpinKitFadingCube(
+                color: Colors.green,
+                size: 50.0,
+                //controller: AnimationController(vsync: this, duration: const Duration(milliseconds: 1200)),
+              )
             );
+            // return Stack(
+            //   children: <Widget>[
+            //     Container(
+            //       width: double.infinity,
+            //       height: double.infinity,
+            //       decoration: DesignConfiguration.back(),
+            //       child: Center(
+            //         child: Container(
+            //           padding: EdgeInsetsDirectional.symmetric(vertical: 20, horizontal: 10),
+            //           decoration: BoxDecoration(
+            //               color: Colors.white,
+            //               boxShadow: [
+            //                 BoxShadow(
+            //                   color: Colors.white.withOpacity(0.4),
+            //                   blurRadius: 5.0,
+            //                 ),
+            //               ],
+            //               borderRadius: BorderRadius.all(
+            //                   Radius.circular(circularBorderRadius10))),
+            //           child: Image.asset(
+            //             DesignConfiguration.setPngPath('logo'),
+            //             // fit: BoxFit.fill,
+            //             width: 100,
+            //             height: 100,
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //     Image.asset(
+            //       DesignConfiguration.setPngPath('doodle'),
+            //       // fit: BoxFit.fill,
+            //     ),
+            //     // Column(
+            //     //   mainAxisAlignment: MainAxisAlignment.end,
+            //     //   crossAxisAlignment: CrossAxisAlignment.center,
+            //     //   children: [
+            //     //     Padding(
+            //     //       padding: const EdgeInsets.only(bottom: 10),
+            //     //       child: Center(
+            //     //         child: SvgPicture.asset(
+            //     //           DesignConfiguration.setSvgPath('wrteam_logo'),
+            //     //           // fit: BoxFit.fill,
+            //     //           width: 40,
+            //     //           height: 40,
+            //     //         ),
+            //     //       ),
+            //     //     ),
+            //     //   ],
+            //     // )
+            //   ],
+            // );
           },
         ),
       ),

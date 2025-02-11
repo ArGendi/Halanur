@@ -11,7 +11,7 @@ import flutter_downloader
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
-    GMSServices.provideAPIKey("ENTER_YOUR_MAP_KEY_IOS")
+    GMSServices.provideAPIKey("AIzaSyDyV_XH8Dt5m-33nnQf0f5v8jJmRkA55fE")
     GeneratedPluginRegistrant.register(with: self)
       
     if(FirebaseApp.app() == nil){

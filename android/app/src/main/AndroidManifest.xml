@@ -13,9 +13,9 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-    <uses-permission
+    <!-- <uses-permission
         android:name="com.google.android.gms.permission.AD_ID"
-        tools:node="remove" />
+        tools:node="remove" /> -->
     <uses-permission
         android:name="android.permission.NEARBY_WIFI_DEVICES"
         android:usesPermissionFlags="neverForLocation" />
@@ -135,7 +135,7 @@
         <!--After Adding Key, Uncomment below lines-->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="ENTER_YOUR_MAP_KEY_FOR_ANDROID" />
+            android:value="AIzaSyDyV_XH8Dt5m-33nnQf0f5v8jJmRkA55fE" />
 
         <meta-data
             android:name="vn.hunghd.flutterdownloader.NOTIFICATION_ICON"

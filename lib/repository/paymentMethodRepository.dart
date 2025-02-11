@@ -3,7 +3,7 @@ import 'package:eshop_multivendor/Screen/StripeService/Stripe_Service.dart';
 import 'package:flutter/cupertino.dart';
 
 //import 'package:paytm/paytm.dart';
-import 'package:paytm_allinonesdk/paytm_allinonesdk.dart';
+//import 'package:paytm_allinonesdk/paytm_allinonesdk.dart';
 import '../Helper/Constant.dart';
 import '../Helper/String.dart';
 
@@ -29,43 +29,43 @@ class PaymentRepository {
   }
 
 //This method is used to pay with paytm
-  static Future<Map<dynamic, dynamic>> payWithPaytm({
-    required Map<String, dynamic> apiParameter,
-    required String paytmCallbackURL,
-    required String paytmMerchantID,
-    required String paytmOrderID,
-    required String paytmTransactionAmount,
-    required bool isTestingModeEnable,
-  }) async {
-    try {
-      Map<dynamic, dynamic> response = await ApiBaseHelper()
-          .postAPICall(getPytmChecsumkApi, apiParameter)
-          .then(
-        (paytmResponseFromAPI) async {
-          var paytmResponse = await AllInOneSdk.startTransaction(
-              paytmMerchantID,
-              paytmOrderID,
-              paytmTransactionAmount.toString(),
-              paytmResponseFromAPI['txn_token']!,
-              paytmCallbackURL,
-              isTestingModeEnable,
-              false);
-          /* Map<dynamic, dynamic> paytmResponse = await Paytm.payWithPaytm(
-            callBackUrl: paytmCallbackURL,
-            mId: paytmMerchantID,
-            orderId: paytmOrderID,
-            txnToken: paytmResponseFromAPI['txn_token']!,
-            txnAmount: paytmTransactionAmount.toString(),
-            staging: isTestingModeEnable,
-          ); */
-          return paytmResponse!;
-        },
-      );
-      return response;
-    } catch (e) {
-      throw ApiException('$errorMesaage${e.toString()}');
-    }
-  }
+  // static Future<Map<dynamic, dynamic>> payWithPaytm({
+  //   required Map<String, dynamic> apiParameter,
+  //   required String paytmCallbackURL,
+  //   required String paytmMerchantID,
+  //   required String paytmOrderID,
+  //   required String paytmTransactionAmount,
+  //   required bool isTestingModeEnable,
+  // }) async {
+  //   try {
+  //     Map<dynamic, dynamic> response = await ApiBaseHelper()
+  //         .postAPICall(getPytmChecsumkApi, apiParameter)
+  //         .then(
+  //       (paytmResponseFromAPI) async {
+  //         var paytmResponse = await AllInOneSdk.startTransaction(
+  //             paytmMerchantID,
+  //             paytmOrderID,
+  //             paytmTransactionAmount.toString(),
+  //             paytmResponseFromAPI['txn_token']!,
+  //             paytmCallbackURL,
+  //             isTestingModeEnable,
+  //             false);
+  //         /* Map<dynamic, dynamic> paytmResponse = await Paytm.payWithPaytm(
+  //           callBackUrl: paytmCallbackURL,
+  //           mId: paytmMerchantID,
+  //           orderId: paytmOrderID,
+  //           txnToken: paytmResponseFromAPI['txn_token']!,
+  //           txnAmount: paytmTransactionAmount.toString(),
+  //           staging: isTestingModeEnable,
+  //         ); */
+  //         return paytmResponse!;
+  //       },
+  //     );
+  //     return response;
+  //   } catch (e) {
+  //     throw ApiException('$errorMesaage${e.toString()}');
+  //   }
+  // }
 
   //
 //This method is used to pay with stripe

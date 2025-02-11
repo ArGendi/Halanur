@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
@@ -134,13 +135,14 @@ class DesignConfiguration {
     required double? widthvalue,
     required double? placeHolderSize,
   }) {
-    return FadeInImage.assetNetwork(
+    return CachedNetworkImage(
       // placeholderCacheWidth: 50,
       // imageCacheHeight: 50,
       // placeholderCacheHeight: 50,
       // imageCacheWidth: 50,
-      image: imageurlString,
-      placeholder:  DesignConfiguration.setPngPath('logo'),
+      imageUrl: imageurlString,
+      placeholder: (context, url) => Center(child: CircularProgressIndicator(color: Colors.green,)),
+      //placeholder:  "",//DesignConfiguration.setPngPath('logo'),
       width: widthvalue,
       height: heightvalue,
       fit: boxFit,
@@ -154,7 +156,7 @@ class DesignConfiguration {
       //imageCacheWidth: 50,
       fadeInCurve: Curves.linear,
       fadeOutCurve: Curves.linear,
-      imageErrorBuilder: (context, error, stackTrace) {
+      errorWidget: (context, error, stackTrace) {
         return Container(
           child: DesignConfiguration.erroWidget(placeHolderSize ?? 50),
         );

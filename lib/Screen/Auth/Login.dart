@@ -611,6 +611,11 @@ class _LoginPageState extends State<Login> with TickerProviderStateMixin {
             getTranslated(context, 'MOB_REQUIRED'),
             getTranslated(context, 'VALID_MOB')),
         onSaved: (String? value) {
+          if(value != null){
+            if(value[0] == '0'){
+              value = value.substring(1);
+            }
+          }
           context.read<AuthenticationProvider>().setMobileNumber(value);
         },
       ),

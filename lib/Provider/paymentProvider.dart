@@ -6,7 +6,7 @@ import 'package:eshop_multivendor/Provider/UserProvider.dart';
 import 'package:eshop_multivendor/Screen/StripeService/Stripe_Service.dart';
 import 'package:eshop_multivendor/repository/paymentMethodRepository.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_paystack/flutter_paystack.dart';
+//import 'package:flutter_paystack/flutter_paystack.dart';
 import 'package:provider/provider.dart';
 
 import '../Helper/String.dart';
@@ -15,7 +15,7 @@ import '../Screen/Payment/Widget/PaymentRadio.dart';
 import '../widgets/networkAvailablity.dart';
 
 class PaymentProvider extends ChangeNotifier {
-  final paystackPlugin = PaystackPlugin();
+  //final paystackPlugin = PaystackPlugin();
   List<String?> paymentMethodList = [];
   List<Model> timeSlotList = [];
   List<RadioModel> timeModel = [];
@@ -198,8 +198,8 @@ class PaymentProvider extends ChangeNotifier {
             context.read<CartProvider>().paystackId =
                 payment['paystack_key_id'];
 
-            paystackPlugin.initialize(
-                publicKey: context.read<CartProvider>().paystackId!);
+            // paystackPlugin.initialize(
+            //     publicKey: context.read<CartProvider>().paystackId!);
           }
           if (stripe) {
             context.read<CartProvider>().stripeId =
@@ -266,84 +266,84 @@ class PaymentProvider extends ChangeNotifier {
     }
   }
 
-  Future<Map<String, dynamic>> payWithPaytm({
-    required String userID,
-    required String orderID,
-    required String paymentAmount,
-    required String paytmCallBackURL,
-    required String paytmMerchantID,
-    required bool isTestingModeEnable,
-  }) async {
-    try {
-      var parameter = {
-        AMOUNT: paymentAmount,
-        // USER_ID: userID,
-        ORDER_ID: orderID
-      };
-      Map<dynamic, dynamic> paytmResponse =
-          await PaymentRepository.payWithPaytm(
-                  apiParameter: parameter,
-                  paytmCallbackURL: paytmCallBackURL,
-                  paytmMerchantID: paytmMerchantID,
-                  paytmOrderID: orderID,
-                  paytmTransactionAmount: paymentAmount,
-                  isTestingModeEnable: isTestingModeEnable)
-              .then(
-        (value) {
-          return value;
-        },
-      ).onError(
-        (error, stackTrace) {
-          return {};
-        },
-      );
+//   Future<Map<String, dynamic>> payWithPaytm({
+//     required String userID,
+//     required String orderID,
+//     required String paymentAmount,
+//     required String paytmCallBackURL,
+//     required String paytmMerchantID,
+//     required bool isTestingModeEnable,
+//   }) async {
+//     try {
+//       var parameter = {
+//         AMOUNT: paymentAmount,
+//         // USER_ID: userID,
+//         ORDER_ID: orderID
+//       };
+//       Map<dynamic, dynamic> paytmResponse =
+//           await PaymentRepository.payWithPaytm(
+//                   apiParameter: parameter,
+//                   paytmCallbackURL: paytmCallBackURL,
+//                   paytmMerchantID: paytmMerchantID,
+//                   paytmOrderID: orderID,
+//                   paytmTransactionAmount: paymentAmount,
+//                   isTestingModeEnable: isTestingModeEnable)
+//               .then(
+//         (value) {
+//           return value;
+//         },
+//       ).onError(
+//         (error, stackTrace) {
+//           return {};
+//         },
+//       );
 
-      Map<String, dynamic> response = {
-        'error': true,
-        'status': false,
-        'message': 'Something went Wrong'
-      };
+//       Map<String, dynamic> response = {
+//         'error': true,
+//         'status': false,
+//         'message': 'Something went Wrong'
+//       };
 
-      if (paytmResponse['errorCode'] == null) {
-        if (paytmResponse['STATUS'] == 'TXN_SUCCESS') {
-          response['error'] = false;
-          response['status'] = true;
-          response['message'] = 'Transaction Successful';
-        } else {
-          response['error'] = true;
-          response['status'] = false;
-          response['message'] = 'Transaction Failed';
-        }
-      } else {
-        response['error'] = paytmResponse['error'];
-        response['message'] = paytmResponse['RESPMSG'];
-      }
+//       if (paytmResponse['errorCode'] == null) {
+//         if (paytmResponse['STATUS'] == 'TXN_SUCCESS') {
+//           response['error'] = false;
+//           response['status'] = true;
+//           response['message'] = 'Transaction Successful';
+//         } else {
+//           response['error'] = true;
+//           response['status'] = false;
+//           response['message'] = 'Transaction Failed';
+//         }
+//       } else {
+//         response['error'] = paytmResponse['error'];
+//         response['message'] = paytmResponse['RESPMSG'];
+//       }
 
-/*       if (paytmResponse['error']) {
-        response['error'] = paytmResponse['error'];
-        response['message'] = paytmResponse['errorMessage'];
-      } else {
-        if (paytmResponse['response'] != null) {
-          if (paytmResponse['response']['STATUS'] == 'TXN_SUCCESS') {
-            response['error'] = false;
-            response['status'] = true;
-            response['message'] = 'Transaction Successful';
-          } else if (paytmResponse['response']['STATUS'] == 'TXN_FAILURE') {
-            response['error'] = true;
-            response['status'] = false;
-            response['message'] = 'Transaction Failed';
-          }
-        }
-      } */
-      return response;
-    } catch (e) {
-      return {
-        'error': true,
-        'status': false,
-        'message': 'Something went Wrong'
-      };
-    }
-  }
+// /*       if (paytmResponse['error']) {
+//         response['error'] = paytmResponse['error'];
+//         response['message'] = paytmResponse['errorMessage'];
+//       } else {
+//         if (paytmResponse['response'] != null) {
+//           if (paytmResponse['response']['STATUS'] == 'TXN_SUCCESS') {
+//             response['error'] = false;
+//             response['status'] = true;
+//             response['message'] = 'Transaction Successful';
+//           } else if (paytmResponse['response']['STATUS'] == 'TXN_FAILURE') {
+//             response['error'] = true;
+//             response['status'] = false;
+//             response['message'] = 'Transaction Failed';
+//           }
+//         }
+//       } */
+//       return response;
+//     } catch (e) {
+//       return {
+//         'error': true,
+//         'status': false,
+//         'message': 'Something went Wrong'
+//       };
+//     }
+//   }
 
   Future<Map<String, dynamic>> payWithStripe({
     required String paymentAmount,
@@ -392,39 +392,40 @@ class PaymentProvider extends ChangeNotifier {
     required String payStackID,
     required BuildContext context,
   }) async {
-    try {
-      await paystackPlugin.initialize(publicKey: payStackID);
+    return {};
+    // try {
+    //   await paystackPlugin.initialize(publicKey: payStackID);
 
-      Charge charge = Charge()
-        ..amount = paymentAmount
-        ..email = userEmail
-        ..reference = reference;
+    //   Charge charge = Charge()
+    //     ..amount = paymentAmount
+    //     ..email = userEmail
+    //     ..reference = reference;
 
-      CheckoutResponse response = await paystackPlugin.checkout(
-        context,
-        method: CheckoutMethod.card,
-        charge: charge,
-      );
-      if (response.status) {
-        return {
-          'error': false,
-          'message': 'Transaction Successful',
-          'status': true
-        };
-      } else {
-        return {
-          'error': false,
-          'message': response.message,
-          'status': true,
-        };
-      }
-    } catch (e) {
-      return {
-        'error': true,
-        'status': false,
-        'message': e.toString(),
-      };
-    }
+    //   CheckoutResponse response = await paystackPlugin.checkout(
+    //     context,
+    //     method: CheckoutMethod.card,
+    //     charge: charge,
+    //   );
+    //   if (response.status) {
+    //     return {
+    //       'error': false,
+    //       'message': 'Transaction Successful',
+    //       'status': true
+    //     };
+    //   } else {
+    //     return {
+    //       'error': false,
+    //       'message': response.message,
+    //       'status': true,
+    //     };
+    //   }
+    // } catch (e) {
+    //   return {
+    //     'error': true,
+    //     'status': false,
+    //     'message': e.toString(),
+    //   };
+    // }
   }
 
   Future<String> getPaypalGatewayLink({
